@@ -1,0 +1,83 @@
+# Autoware repos state as of 07/09/2022 10:00am
+
+repositories:
+  core/autoware.core:
+    type: git
+    url: https://github.com/autowarefoundation/autoware.core.git
+    version: 45a8e8d4b91af042e9e041ea3a4d34dcddf2acdd
+  core/autoware_common:
+    type: git
+    url: https://github.com/autowarefoundation/autoware_common.git
+    version: 7f48d89ea4049bda416b119957842fc4ae1eaab7
+  core/autoware_msgs:
+    type: git
+    url: https://github.com/autowarefoundation/autoware_msgs.git
+    version: 6f57dfcf301ae51e7e154f5567cd269287a70939
+  core/external/autoware_auto_msgs:
+    type: git
+    url: https://github.com/tier4/autoware_auto_msgs.git
+    version: c8a5d2001da052137c08cdf9e8d75c1975f99b84
+  launcher/autoware_launch:
+    type: git
+    url: https://github.com/autowarefoundation/autoware_launch.git
+    version: 966ac10d3155745cf91d648684abdd7786e01c3c
+  param/autoware_individual_params:
+    type: git
+    url: https://github.com/autowarefoundation/autoware_individual_params.git
+    version: 849788c5755e2211a9c60ae80cb0263693d1a25c
+  sensor_component/external/sensor_component_description:
+    type: git
+    url: https://github.com/tier4/sensor_component_description.git
+    version: d7fb2adbf9e675dacdc7aca5b2ff32ddc56046aa
+  sensor_component/external/tamagawa_imu_driver:
+    type: git
+    url: https://github.com/tier4/tamagawa_imu_driver.git
+    version: 28ad3cd4fb043e5f92353a540c3531cd4cb7bef3
+  sensor_component/external/velodyne_vls:
+    type: git
+    url: https://github.com/tier4/velodyne_vls.git
+    version: 21e632f185c212e46872ca267ec054a57e9a74a8
+  sensor_kit/sample_sensor_kit_launch:
+    type: git
+    url: https://github.com/autowarefoundation/sample_sensor_kit_launch.git
+    version: 3de568d173547c3605ef444944c540ad49db7471
+  universe/autoware.universe:
+    type: git
+    url: https://github.com/autowarefoundation/autoware.universe.git
+    version: a6ec501fd121de4eaef22835c7b3dc8ee4e3b39c
+  universe/external/grid_map:
+    type: git
+    url: https://github.com/ANYbotics/grid_map.git
+    version: ba2f9cb6e62f7ee9c5bac7401391a211e442e459
+  universe/external/morai_msgs:
+    type: git
+    url: https://github.com/MORAI-Autonomous/MORAI-ROS2_morai_msgs.git
+    version: 5ac6a317423a653aa38e5cca99a95b895b231ecf
+  universe/external/muSSP:
+    type: git
+    url: https://github.com/tier4/muSSP.git
+    version: c79e98fd5e658f4f90c06d93472faa977bc873b9
+  universe/external/ndt_omp:
+    type: git
+    url: https://github.com/tier4/ndt_omp.git
+    version: 7fa5fa727ea2b999da925d6ab7dfa1298af521e4
+  universe/external/pointcloud_to_laserscan:
+    type: git
+    url: https://github.com/tier4/pointcloud_to_laserscan.git
+    version: 948a4fca35dcb03c6c8fbfa610a686f7c919fe0b
+  universe/external/tier4_ad_api_adaptor:
+    type: git
+    url: https://github.com/tier4/tier4_ad_api_adaptor.git
+    version: 8e610be0b1f3d3f765fffdddd203300e0ee8e712
+  universe/external/tier4_autoware_msgs:
+    type: git
+    url: https://github.com/tier4/tier4_autoware_msgs.git
+    version: 8b85e6e43aa48cf4a439c77bf4bf6aee2e70c3ef
+  vehicle/external/pacmod_interface:
+    type: git
+    url: https://github.com/tier4/pacmod_interface.git
+    version: c1578b92cd4f3a4ba3391a4d6b9bf27dffe16171
+  vehicle/sample_vehicle_launch:
+    type: git
+    url: https://github.com/autowarefoundation/sample_vehicle_launch.git
+    version: 516c960dd1880193c50346d8171a9418d9757d61

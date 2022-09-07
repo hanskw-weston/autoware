@@ -1,3 +1,5 @@
+# Original Autoware repos
+
 repositories:
   # core
   core/autoware_msgs:
@@ -20,10 +22,6 @@ repositories:
     type: git
     url: https://github.com/tier4/autoware_auto_msgs.git
     version: tier4/main
-  core/external/ament_cmake:
-    type: git
-    url: https://github.com/autowarefoundation/ament_cmake.git
-    version: autoware-humble
   # universe
   universe/autoware.universe:
     type: git
@@ -40,7 +38,7 @@ repositories:
   universe/external/grid_map:
     type: git
     url: https://github.com/ANYbotics/grid_map.git
-    version: 74333f037cfce321248dfa7b954a815d4f67d79d
+    version: ba2f9cb6e62f7ee9c5bac7401391a211e442e459
   universe/external/morai_msgs:
     type: git
     url: https://github.com/MORAI-Autonomous/MORAI-ROS2_morai_msgs.git
@@ -67,28 +65,24 @@ repositories:
     type: git
     url: https://github.com/tier4/sensor_component_description.git
     version: main
-  sensor_component/external/ros2_ouster_drivers:
+  sensor_component/external/tamagawa_imu_driver:
     type: git
-    url: https://github.com/ros-drivers/ros2_ouster_drivers.git
-    version: humble
-  sensor_component/external/wrp_ros2:
-    type: git
-    url: https://github.com/westonrobot/wrp_ros2.git
-    version: next
-  sensor_component/external/ublox:
-    type: git
-    url: https://github.com/westonrobot/ublox.git
+    url: https://github.com/tier4/tamagawa_imu_driver.git
     version: ros2
+  sensor_component/external/velodyne_vls:
+    type: git
+    url: https://github.com/tier4/velodyne_vls.git
+    version: tier4/universe
   # sensor_kit
-  sensor_kit/scout_dev_sensor_kit_launch:
+  sensor_kit/sample_sensor_kit_launch:
     type: git
-    url: https://github.com/westonrobot/scout_dev_sensor_kit_launch.git
-    version: feature-autoware_humble
+    url: https://github.com/autowarefoundation/sample_sensor_kit_launch.git
+    version: main
   # vehicle
-  vehicle/scout_dev_vehicle_launch:
+  vehicle/sample_vehicle_launch:
     type: git
-    url: https://github.com/westonrobot/scout_dev_vehicle_launch.git
-    version: feature-autoware_humble
+    url: https://github.com/autowarefoundation/sample_vehicle_launch.git
+    version: main
   vehicle/external/pacmod_interface:
     type: git
     url: https://github.com/tier4/pacmod_interface.git

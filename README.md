@@ -49,3 +49,21 @@ If you wish to use Autoware.AI, the previous version of Autoware based on ROS 1,
 
 - [Autoware Foundation homepage](https://www.autoware.org/)
 - [Support guidelines](https://autowarefoundation.github.io/autoware-documentation/main/support/support-guidelines/)
+
+
+## Building Autoware (Source)
+Reference: https://autowarefoundation.github.io/autoware-documentation/main/installation/autoware/source-installation/
+
+1. Clone this repository into a ROS2 workspace
+2. Run [setup-dev-env.sh](./setup-dev-env.sh)
+3. Inside the autoware folder, create a src folder
+4. Import relevant repos into src using vcstool
+    * Refer to the different ".repos" files in the [repos](./repos/) folder
+5. Install dependent ROS packages
+    * ```bash
+      rosdep install -y --from-paths src --ignore-src --rosdistro $ROS_DISTRO
+      ```
+6. Build the autoware workspace
+    * ```bash
+      colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
+      ```

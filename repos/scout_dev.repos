@@ -1,3 +1,5 @@
+# Repos to run development scout with autoware (based on autoware_frozen)
+
 repositories:
   core/autoware.core:
     type: git
@@ -79,10 +81,10 @@ repositories:
     type: git
     url: https://github.com/tier4/tier4_autoware_msgs.git
     version: 9dc82a86e00c4de601cf9d0963d02b242d04a7e7
-  vehicle/external/pacmod_interface:
+  vehicle/external/wrp_ros_interface:
     type: git
-    url: https://github.com/tier4/pacmod_interface.git
-    version: c1578b92cd4f3a4ba3391a4d6b9bf27dffe16171
+    url: git@github.com:westonrobot-dev/wrp_ros_interface.git
+    version: feature-autoware_humble
   vehicle/scout_dev_vehicle_launch:
     type: git
     url: https://github.com/westonrobot/scout_dev_vehicle_launch.git
