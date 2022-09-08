@@ -30,11 +30,12 @@ RUN ./setup-dev-env.sh -y
 RUN mkdir src &&\
     vcs import src < repos/scout_dev.repos &&\
     source /opt/ros/humble/setup.bash &&\
-    rosdep update
-    # rosdep install -y --ignore-src --from-paths src --rosdistro humble
+    rosdep update &&\
+    rosdep install -y --ignore-src --from-paths src --rosdistro humble --skip-keys wrp_sdk --skip-keys wrp_zbus
     
 WORKDIR /autoware_ws/
-RUN colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
+RUN source /opt/ros/humble/setup.bash &&\
+    colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
 
 RUN apt clean &&\
     rm -rf /var/lib/apt/lists/*
