@@ -2,9 +2,9 @@ version: "3"
 services:
   autoware_development:
     image: westonrobot/dev:scout_autoware
-    build: # Comment this section out if pulling from docker hub
-      context: ../
-      dockerfile: docker/Dockerfile.humble
+    # build: # uncomment this section out if building
+    #   context: ../
+    #   dockerfile: docker/Dockerfile.humble
     environment:
       - DISPLAY=${DISPLAY}
     volumes:

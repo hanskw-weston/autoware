@@ -21,6 +21,10 @@ COPY ansible/ /autoware_ws/src/autoware/ansible/
 WORKDIR /autoware_ws/src/autoware
 RUN ls /autoware_ws/src/autoware
 
+# Get lelycan
+RUN add-apt-repository ppa:lely/ppa && sudo apt-get update &&\
+    apt-get install -y pkg-config liblely-coapp-dev liblely-co-tools
+
 # Get wrp_sdk
 RUN echo "deb https://westonrobot.jfrog.io/artifactory/wrtoolbox-release $(lsb_release -cs) next" | sudo tee /etc/apt/sources.list.d/weston-robot.list && \
     curl -sSL 'https://westonrobot.jfrog.io/artifactory/api/security/keypair/wr-deb/public' | sudo apt-key add - &&\
