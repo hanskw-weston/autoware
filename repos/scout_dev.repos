@@ -83,7 +83,7 @@ repositories:
     version: 9dc82a86e00c4de601cf9d0963d02b242d04a7e7
   vehicle/external/wrp_ros_interface:
     type: git
-    url: git@github.com:westonrobot-dev/wrp_ros_interface.git
+    url: https://github.com/westonrobot-dev/wrp_ros_interface.git
     version: feature-autoware_humble
   vehicle/scout_dev_vehicle_launch:
     type: git

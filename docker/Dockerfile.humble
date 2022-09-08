@@ -1,0 +1,43 @@
+FROM westonrobot/ros:humble-ci
+SHELL ["/bin/bash", "-c"]
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN useradd -ms /bin/bash autoware && echo "autoware:autoware" | chpasswd && adduser autoware sudo
+
+RUN apt-get update &&\
+    apt install -y \
+    ros-humble-desktop \
+    ros-humble-xacro \
+    geographiclib-tools \
+    ros-humble-ament-cmake
+
+RUN geographiclib-get-geoids egm2008-1
+
+## Copy files
+RUN mkdir -p /autoware_ws/src/
+COPY setup-dev-env.sh ansible-galaxy-requirements.yaml amd64.env arm64.env /autoware_ws/src/autoware/
+COPY repos/ /autoware_ws/src/autoware/repos/
+COPY ansible/ /autoware_ws/src/autoware/ansible/
+WORKDIR /autoware_ws/src/autoware
+RUN ls /autoware_ws/src/autoware
+
+# Get wrp_sdk
+RUN echo "deb https://westonrobot.jfrog.io/artifactory/wrtoolbox-release $(lsb_release -cs) next" | sudo tee /etc/apt/sources.list.d/weston-robot.list && \
+    curl -sSL 'https://westonrobot.jfrog.io/artifactory/api/security/keypair/wr-deb/public' | sudo apt-key add - &&\
+    apt update && apt install -y wrp_sdk
+
+RUN ./setup-dev-env.sh -y
+RUN mkdir src &&\
+    vcs import src < repos/scout_dev.repos &&\
+    source /opt/ros/humble/setup.bash &&\
+    rosdep update
+    # rosdep install -y --ignore-src --from-paths src --rosdistro humble
+    
+WORKDIR /autoware_ws/
+RUN colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
+
+RUN apt clean &&\
+    rm -rf /var/lib/apt/lists/*
+
+RUN echo "source /opt/ros/humble/setup.bash" > /etc/bash.bashrc
+CMD ["/bin/bash"]
