@@ -2,16 +2,12 @@ FROM westonrobot/ros:humble-ci
 SHELL ["/bin/bash", "-c"]
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN useradd -ms /bin/bash autoware && echo "autoware:autoware" | chpasswd && adduser autoware sudo
-
 RUN apt-get update &&\
     apt install -y \
     ros-humble-desktop \
     ros-humble-xacro \
     geographiclib-tools \
     ros-humble-ament-cmake
-
-RUN geographiclib-get-geoids egm2008-1
 
 ## Copy files
 RUN mkdir -p /autoware_ws/src/
