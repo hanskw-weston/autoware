@@ -1,7 +1,7 @@
 version: "3"
 services:
   autoware_development:
-    image: westonrobot/dev:scout_autoware_nvidia
+    image: westonrobot/dev:scout_autoware
     # build: # uncomment this section out if building
     #   context: ../
     #   dockerfile: docker/Dockerfile.humble

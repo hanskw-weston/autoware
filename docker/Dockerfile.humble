@@ -1,4 +1,4 @@
-FROM westonrobot/ros:humble-ci
+FROM westonrobot/ubuntu:humble-base-20220827
 SHELL ["/bin/bash", "-c"]
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -9,12 +9,6 @@ ENV NVIDIA_DRIVER_CAPABILITIES \
     ${NVIDIA_DRIVER_CAPABILITIES:+$NVIDIA_DRIVER_CAPABILITIES,}graphics
 
 RUN adduser root video
-RUN apt-get update &&\
-    apt install -y \
-    ros-humble-desktop \
-    ros-humble-xacro \
-    geographiclib-tools \
-    ros-humble-ament-cmake
 
 ## Copy files
 RUN mkdir -p /autoware_ws/src/

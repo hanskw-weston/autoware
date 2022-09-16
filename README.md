@@ -67,3 +67,8 @@ Reference: https://autowarefoundation.github.io/autoware-documentation/main/inst
     * ```bash
       colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
       ```
+
+TODO: autoware.universe/launch/tier4_perception_launch: Still uses /sensing/Lidar/concatenated/pointcloud as input pointcloud which we do not have, we do have /sensing/lidar/top/outlier_filtered/pointcloud. Not sure if this will work.
+TODO: param/autoware_individual_param: Should not be needed anymore. Needs validation b4 removal.
+TODO: autoware.universe/map/map_loader: map_loader uses default map config in map_loader pkg. Probably have to create custom map_loader pkg or change manually when setup for site.
+TODO: Add gnss to sensor kit
