@@ -1,0 +1,91 @@
+# Repos to run development scout with autoware (based on autoware_20220907)
+
+repositories:
+  core/autoware.core:
+    type: git
+    url: https://github.com/autowarefoundation/autoware.core.git
+    version: 45a8e8d4b91af042e9e041ea3a4d34dcddf2acdd
+  core/autoware_common:
+    type: git
+    url: https://github.com/autowarefoundation/autoware_common.git
+    version: 7f48d89ea4049bda416b119957842fc4ae1eaab7
+  core/autoware_msgs:
+    type: git
+    url: https://github.com/autowarefoundation/autoware_msgs.git
+    version: 6f57dfcf301ae51e7e154f5567cd269287a70939
+  core/external/ament_cmake:
+    type: git
+    url: https://github.com/autowarefoundation/ament_cmake.git
+    version: 221ae9c10cf0c1fb0dd10fb502a50b2f579b513f
+  core/external/autoware_auto_msgs:
+    type: git
+    url: https://github.com/tier4/autoware_auto_msgs.git
+    version: c8a5d2001da052137c08cdf9e8d75c1975f99b84
+  launcher/autoware_launch:
+    type: git
+    url: https://github.com/autowarefoundation/autoware_launch.git
+    version: 751879ed4c77de46d02e6e454f67a956fc81b2cf
+  param/autoware_individual_params:
+    type: git
+    url: https://github.com/autowarefoundation/autoware_individual_params.git
+    version: 849788c5755e2211a9c60ae80cb0263693d1a25c
+  sensor_component/external/ros2_ouster_drivers:
+    type: git
+    url: https://github.com/ros-drivers/ros2_ouster_drivers.git
+    version: 47662dfd639414d133818bdf6161d883d7169a07
+  sensor_component/external/sensor_component_description:
+    type: git
+    url: https://github.com/tier4/sensor_component_description.git
+    version: d7fb2adbf9e675dacdc7aca5b2ff32ddc56046aa
+  sensor_component/external/ublox:
+    type: git
+    url: https://github.com/westonrobot/ublox.git
+    version: ros2
+  sensor_component/external/wrp_ros2:
+    type: git
+    url: https://github.com/westonrobot/wrp_ros2.git
+    version: next
+  sensor_kit/scout_dev_sensor_kit_launch:
+    type: git
+    url: https://github.com/westonrobot/scout_dev_sensor_kit_launch.git
+    version: feature-autoware_humble
+  universe/autoware.universe:
+    type: git
+    url: https://github.com/autowarefoundation/autoware.universe.git
+    version: a4078bdf374fc617f5be531e50e892aefbbc53e0
+  universe/external/grid_map:
+    type: git
+    url: https://github.com/ANYbotics/grid_map.git
+    version: 74333f037cfce321248dfa7b954a815d4f67d79d
+  universe/external/morai_msgs:
+    type: git
+    url: https://github.com/MORAI-Autonomous/MORAI-ROS2_morai_msgs.git
+    version: 5ac6a317423a653aa38e5cca99a95b895b231ecf
+  universe/external/muSSP:
+    type: git
+    url: https://github.com/tier4/muSSP.git
+    version: c79e98fd5e658f4f90c06d93472faa977bc873b9
+  universe/external/ndt_omp:
+    type: git
+    url: https://github.com/tier4/ndt_omp.git
+    version: 7fa5fa727ea2b999da925d6ab7dfa1298af521e4
+  universe/external/pointcloud_to_laserscan:
+    type: git
+    url: https://github.com/tier4/pointcloud_to_laserscan.git
+    version: 948a4fca35dcb03c6c8fbfa610a686f7c919fe0b
+  universe/external/tier4_ad_api_adaptor:
+    type: git
+    url: https://github.com/tier4/tier4_ad_api_adaptor.git
+    version: 90c8680705a2acb2e2b374e6fbf9755f181c4d23
+  universe/external/tier4_autoware_msgs:
+    type: git
+    url: https://github.com/tier4/tier4_autoware_msgs.git
+    version: 9dc82a86e00c4de601cf9d0963d02b242d04a7e7
+  vehicle/external/wrp_ros_interface:
+    type: git
+    url: https://github.com/westonrobot-dev/wrp_ros_interface.git
+    version: feature-autoware_humble
+  vehicle/scout_dev_vehicle_launch:
+    type: git
+    url: https://github.com/westonrobot/scout_dev_vehicle_launch.git
+    version: feature-autoware_humble

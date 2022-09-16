@@ -29,7 +29,7 @@ RUN echo "deb https://westonrobot.jfrog.io/artifactory/wrtoolbox-release $(lsb_r
 
 RUN ./setup-dev-env.sh -y
 RUN mkdir src &&\
-    vcs import src < repos/scout_dev.repos &&\
+    vcs import src < repos/scout_dev_20220916.repos &&\
     source /opt/ros/humble/setup.bash &&\
     rosdep update &&\
     rosdep install -y --ignore-src --from-paths src --rosdistro humble --skip-keys wrp_sdk --skip-keys wrp_zbus
