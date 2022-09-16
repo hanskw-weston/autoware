@@ -1,4 +1,4 @@
-FROM westonrobot/ubuntu:humble-base-20220827
+FROM westonrobot/ros:humble-base-20220827
 SHELL ["/bin/bash", "-c"]
 ENV DEBIAN_FRONTEND=noninteractive
 
