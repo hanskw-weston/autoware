@@ -10,6 +10,7 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       # Mount a directory with your lanelet2 map
+    network_mode: host
     tty: true
     privileged: true
     stdin_open: true
