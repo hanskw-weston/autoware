@@ -15,6 +15,7 @@ RUN mkdir -p /autoware_ws/src/
 COPY setup-dev-env.sh ansible-galaxy-requirements.yaml amd64.env arm64.env /autoware_ws/src/autoware/
 COPY repos/ /autoware_ws/src/autoware/repos/
 COPY ansible/ /autoware_ws/src/autoware/ansible/
+COPY src/ /autoware_ws/src/autoware/src/
 WORKDIR /autoware_ws/src/autoware
 RUN ls /autoware_ws/src/autoware
 
@@ -28,9 +29,7 @@ RUN echo "deb https://westonrobot.jfrog.io/artifactory/wrtoolbox-release $(lsb_r
     apt update && apt install -y wrp_sdk
 
 RUN ./setup-dev-env.sh -y
-RUN mkdir src &&\
-    vcs import src < repos/scout_dev_20220916.repos &&\
-    source /opt/ros/humble/setup.bash &&\
+RUN source /opt/ros/humble/setup.bash &&\
     rosdep update &&\
     rosdep install -y --ignore-src --from-paths src --rosdistro humble --skip-keys wrp_sdk --skip-keys wrp_zbus
     
