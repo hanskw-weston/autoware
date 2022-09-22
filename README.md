@@ -78,11 +78,23 @@ Reference: https://autowarefoundation.github.io/autoware-documentation/main/inst
      docker build ../ -t westonrobot/dev:scout_autoware -f Dockerfile.dev 
     ```
 
+## Running Autoware
+### Simulations
+Refer to this link: https://autowarefoundation.github.io/autoware-documentation/main/tutorials/
+### On Robot
+Refer to this link: https://autowarefoundation.github.io/autoware-documentation/main/how-to-guides/integrating-autoware-with-your-vehicle/
+
+## Notes
+Currently there are a few code changes that is still in testing/non-permanent by design, so if you are building the code by yourself, you will need to implement these changes
+1. autoware/src/launcher/autoware_launch/autoware_launch/launch/autoware.launch.xml: To perception group, add the line
+   ```yaml
+      <arg name="input/pointcloud" value="/sensing/lidar/top/outlier_filtered/pointcloud"/>
+   ``` 
+2. autoware/src/universe/autoware.universe/map/map_loader/config/lanelet2_map_loader.param.yaml: Change the values here to correspond with your lanelet2 map
+   1. You can get some maps from [here](https://tangrobot-my.sharepoint.com/:f:/g/personal/hans_kurnia_westonrobot_com/EgWug1nR3wZAmpTOOdEjh2UBQYxJGPoP84CyEyFGWB1HCw?e=lnW9vQ)
 
 ### TODOs
 TODO: autoware.universe/launch/tier4_perception_launch: Still uses /sensing/Lidar/concatenated/pointcloud as input pointcloud which we do not have, we do have /sensing/lidar/top/outlier_filtered/pointcloud. Not sure if this will work.
-
-~~TODO: param/autoware_individual_param: Should not be needed anymore. Needs validation b4 removal.~~
 
 TODO: autoware.universe/map/map_loader: map_loader uses default map config in map_loader pkg. Probably have to create custom map_loader pkg or change manually when setup for site.
 
