@@ -1,12 +1,18 @@
-FROM westonrobot/ros:humble-ci
-SHELL ["/bin/bash", "-c"]
+FROM westonrobot/ubuntu:jammy-base-20220827
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ENV DEBIAN_FRONTEND=noninteractive
 
 # nvidia-container-runtime
 ENV NVIDIA_VISIBLE_DEVICES=all
 ENV NVIDIA_DRIVER_CAPABILITIES=all
 
-RUN adduser root video
+## Install apt packages
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends \
+  git \
+  ssh \
+  gpg-agent \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 
 ## Copy files
 RUN mkdir -p /autoware_ws/src/
@@ -15,10 +21,9 @@ COPY repos/ /autoware_ws/src/autoware/repos/
 COPY ansible/ /autoware_ws/src/autoware/ansible/
 COPY src/ /autoware_ws/src/autoware/src/
 WORKDIR /autoware_ws/src/autoware
-RUN ls /autoware_ws/src/autoware
 
 # Get lelycan
-RUN add-apt-repository ppa:lely/ppa && sudo apt-get update &&\
+RUN add-apt-repository ppa:lely/ppa && apt-get update &&\
     apt-get install -y pkg-config liblely-coapp-dev liblely-co-tools
 
 # Get wrp_sdk
@@ -26,17 +31,26 @@ RUN echo "deb https://westonrobot.jfrog.io/artifactory/wrtoolbox-release $(lsb_r
     curl -sSL 'https://westonrobot.jfrog.io/artifactory/api/security/keypair/wr-deb/public' | sudo apt-key add - &&\
     apt update && apt install -y wrp_sdk
 
-RUN ./setup-dev-env.sh -y
+RUN ./setup-dev-env.sh -y universe
 RUN source /opt/ros/humble/setup.bash &&\
     rosdep update &&\
     rosdep install -y --ignore-src --from-paths src --rosdistro humble --skip-keys wrp_sdk --skip-keys wrp_zbus
-    
+
+# Register Vulkan GPU vendors
+ADD "https://gitlab.com/nvidia/container-images/vulkan/raw/dc389b0445c788901fda1d85be96fd1cb9410164/nvidia_icd.json" /etc/vulkan/icd.d/nvidia_icd.json
+RUN chmod 644 /etc/vulkan/icd.d/nvidia_icd.json
+ADD "https://gitlab.com/nvidia/container-images/opengl/raw/5191cf205d3e4bb1150091f9464499b076104354/glvnd/runtime/10_nvidia.json" /etc/glvnd/egl_vendor.d/10_nvidia.json
+RUN chmod 644 /etc/glvnd/egl_vendor.d/10_nvidia.json
+
+RUN echo "source /opt/ros/humble/setup.bash" > /etc/bash.bashrc
+
 WORKDIR /autoware_ws/
 RUN source /opt/ros/humble/setup.bash &&\
-    colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
+    colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release &&\
+    find /autoware_ws/src/autoware/install -type d -exec chmod 777 {} \;
 
 RUN apt clean &&\
     rm -rf /var/lib/apt/lists/*
 
-RUN echo "source /opt/ros/humble/setup.bash" > /etc/bash.bashrc
+RUN echo "source /autoware_ws/src/autoware/install/setup.bash" > /etc/bash.bashrc
 CMD ["/bin/bash"]
