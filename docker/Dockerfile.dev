@@ -47,10 +47,10 @@ RUN echo "source /opt/ros/humble/setup.bash" > /etc/bash.bashrc
 WORKDIR /autoware_ws/
 RUN source /opt/ros/humble/setup.bash &&\
     colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release &&\
-    find /autoware_ws/src/autoware/install -type d -exec chmod 777 {} \;
+    find /autoware_ws/install -type d -exec chmod 777 {} \;
 
 RUN apt clean &&\
     rm -rf /var/lib/apt/lists/*
 
-RUN echo "source /autoware_ws/src/autoware/install/setup.bash" > /etc/bash.bashrc
+RUN echo "source /autoware_ws/install/setup.bash" > /etc/bash.bashrc
 CMD ["/bin/bash"]
