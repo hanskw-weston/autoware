@@ -75,7 +75,11 @@ Reference: https://autowarefoundation.github.io/autoware-documentation/main/inst
 3. Make any change to source code as needed
 4. In the [docker](./docker) folder, run
     ```bash
-     docker build ../ -t westonrobot/dev:scout_autoware -f Dockerfile.dev 
+     docker build ../ -t westonrobot/dev:scout_autoware_built -f Dockerfile.built 
+    ```
+    to built source within the docker or if you want to mount and build your own workspace in an the image
+    ```bash
+     docker build ../ -t westonrobot/dev:scout_autoware_dev -f Dockerfile.dev 
     ```
 
 ## Running Autoware

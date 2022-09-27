@@ -2,10 +2,6 @@ FROM westonrobot/ubuntu:jammy-base-20220827
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ENV DEBIAN_FRONTEND=noninteractive
 
-# nvidia-container-runtime
-ENV NVIDIA_VISIBLE_DEVICES=all
-ENV NVIDIA_DRIVER_CAPABILITIES=all
-
 ## Install apt packages
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends \
   git \
@@ -19,6 +15,7 @@ RUN mkdir -p /autoware_ws/src/
 COPY setup-dev-env.sh ansible-galaxy-requirements.yaml amd64.env arm64.env /autoware_ws/src/autoware/
 COPY repos/ /autoware_ws/src/autoware/repos/
 COPY ansible/ /autoware_ws/src/autoware/ansible/
+COPY src/ /autoware_ws/src/autoware/src/
 WORKDIR /autoware_ws/src/autoware
 
 # Get lelycan
@@ -32,15 +29,18 @@ RUN echo "deb https://westonrobot.jfrog.io/artifactory/wrtoolbox-release $(lsb_r
 
 RUN ./setup-dev-env.sh -y universe
 RUN source /opt/ros/humble/setup.bash &&\
-    mkdir src &&\
-    vcs import src < repos/scout_dev_20220916.repos &&\
     rosdep update &&\
     rosdep install -y --ignore-src --from-paths src --rosdistro humble --skip-keys wrp_sdk --skip-keys wrp_zbus
 
 RUN echo "source /opt/ros/humble/setup.bash" > /etc/bash.bashrc
 
-RUN rm -rf /autoware_ws &&\
-    apt clean &&\
+WORKDIR /autoware_ws/
+RUN source /opt/ros/humble/setup.bash &&\
+    colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release &&\
+    find /autoware_ws/install -type d -exec chmod 777 {} \;
+
+RUN apt clean &&\
     rm -rf /var/lib/apt/lists/*
 
+RUN echo "source /autoware_ws/install/setup.bash" > /etc/bash.bashrc
 CMD ["/bin/bash"]
