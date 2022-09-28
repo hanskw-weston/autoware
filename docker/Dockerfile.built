@@ -1,0 +1,46 @@
+FROM nvcr.io/nvidia/l4t-base:r35.1.0
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+ENV DEBIAN_FRONTEND=noninteractive
+
+## Install apt packages
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends \
+  git \
+  ssh \
+  gpg-agent \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+
+## Copy files
+RUN mkdir -p /autoware_ws/src/
+COPY setup-dev-env.sh ansible-galaxy-requirements.yaml amd64.env arm64.env /autoware_ws/src/autoware/
+COPY repos/ /autoware_ws/src/autoware/repos/
+COPY ansible/ /autoware_ws/src/autoware/ansible/
+COPY src/ /autoware_ws/src/autoware/src/
+WORKDIR /autoware_ws/src/autoware
+
+# Get lelycan
+RUN add-apt-repository ppa:lely/ppa && apt-get update &&\
+    apt-get install -y pkg-config liblely-coapp-dev liblely-co-tools
+
+# Get wrp_sdk
+RUN echo "deb https://westonrobot.jfrog.io/artifactory/wrtoolbox-release $(lsb_release -cs) next" | sudo tee /etc/apt/sources.list.d/weston-robot.list && \
+    curl -sSL 'https://westonrobot.jfrog.io/artifactory/api/security/keypair/wr-deb/public' | sudo apt-key add - &&\
+    apt update && apt install -y wrp_sdk
+
+RUN ./setup-dev-env.sh -y universe
+RUN source /opt/ros/${ROS_DISTRO}/setup.bash &&\
+    rosdep update &&\
+    rosdep install -y --ignore-src --from-paths src --rosdistro ${ROS_DISTRO} --skip-keys wrp_sdk --skip-keys wrp_zbus
+
+RUN echo "source /opt/ros/${ROS_DISTRO}/setup.bash" > /etc/bash.bashrc
+
+WORKDIR /autoware_ws/
+RUN source /opt/ros/${ROS_DISTRO}/setup.bash &&\
+    colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release &&\
+    find /autoware_ws/install -type d -exec chmod 777 {} \;
+
+RUN apt clean &&\
+    rm -rf /var/lib/apt/lists/*
+
+RUN echo "source /autoware_ws/install/setup.bash" > /etc/bash.bashrc
+CMD ["/bin/bash"]
